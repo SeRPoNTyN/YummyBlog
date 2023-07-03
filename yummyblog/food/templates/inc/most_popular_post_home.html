@@ -1,0 +1,52 @@
+{% load posts %}
+{% for i in post %}
+<!-- Single Post -->
+<div class="col-12">
+    <div class="single-post wow fadeInUp" data-wow-delay=".2s">
+        <!-- Post Thumb -->
+        <div class="post-thumb">
+            <img src="{{i.image.url}}" alt="">
+        </div>
+        <!-- Post Content -->
+        <div class="post-content">
+            <div class="post-meta d-flex">
+                <div class="post-author-date-area d-flex">
+                    <!-- Post Author -->
+                    <div class="post-author">
+                        <a href="#">By {{i.author}}</a>
+                    </div>
+                    <!-- Post Date -->
+                    <div class="post-date">
+                        <a href="#">{{i.created_at}}</a>
+                    </div>
+                </div>
+                <!-- Post Comment & Share Area -->
+                <div class="post-comment-share-area d-flex">
+                    <!-- Post Favourite -->
+                    <div class="post-favourite">
+                        <a href="{% url 'post_like' i.slug %}"><i class="fa fa-heart-o"
+                                                                  aria-hidden="true"></i>
+                            {{i.get_likes_count}}</a>
+                    </div>
+                    <!-- Post Comments -->
+                    <div class="post-comments">
+                        <a href="#"><i class="fa fa-comment-o" aria-hidden="true"></i>
+                            {% get_count_of_comments i.slug %}
+                        </a>
+                    </div>
+                    <!-- Post Share -->
+                    <div class="post-share">
+                        <a href="#"><i class="fa fa-share-alt" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+            </div>
+            <a href="{{i.get_absolute_url}}">
+                <h2 class="post-headline">{{i.title|safe}}</h2>
+            </a>
+            <p>{{i.content|safe|truncatewords_html:50}}</p>
+            <a href="{{i.get_absolute_url}}" class="read-more">Continue Reading..</a>
+        </div>
+    </div>
+    <hr>
+</div>
+{% endfor %}

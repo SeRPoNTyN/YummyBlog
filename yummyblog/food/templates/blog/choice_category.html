@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% load static %}
+
+
+{% block content %}
+<div class="breadcumb-area" style="background-image: url({% static 'img/bg-img/breadcumb.jpg' %});">
+    <div class="container h-100">
+        <div class="row h-100 align-items-center">
+            <div class="col-12">
+                <div class="bradcumb-title text-center">
+                    <h2>Archive Page</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="breadcumb-nav">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="{% url 'home' %}"><i class="fa fa-home"
+                                                                                  aria-hidden="true"></i> Home</a></li>
+                        <li class="breadcrumb-item"><a href="{% url 'archive' %}"><i aria-hidden="true"></i> Archive
+                            Page</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"> Categories</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+<br>
+
+<style>
+   hr {
+    border: none; /* Убираем границу */
+    background-color: red; /* Цвет линии */
+    color: red; /* Цвет линии для IE6-7 */
+    height: 2px; /* Толщина линии */
+   }
+
+</style>
+
+<!-- ****** Breadcumb Area End ****** -->
+
+<div class="container">
+    <hr>
+
+    {% for i in categories %}
+
+    <div class="col-12">
+        <br>
+        <div class="list-blog single-post d-sm-flex wow fadeInUpBig" data-wow-delay=".2s">
+            <!-- Post Thumb -->
+
+            <div class="post-thumb">
+                <img src="{{i.image.url}}" height="333" width="592" alt="" align="right">
+            </div>
+            <!-- Post Content -->
+            <div class="post-content">
+                <a href="{{i.get_absolute_url}}">
+                    <h4 class="post-headline">{{i.title|safe}}</h4>
+                </a>
+                <p>{{i.description|safe|truncatewords_html:60}}</p>
+                <a href="#" class="read-more">Read</a>
+            </div>
+        </div>
+    </div>
+    <hr>
+    {% endfor %}
+    {% if page_obj.has_other_pages %}
+{% include "inc/_paginator.html" %}
+{% endif %}
+</div>
+
+
+
+{% endblock %}

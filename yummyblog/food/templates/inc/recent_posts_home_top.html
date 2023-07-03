@@ -1,0 +1,22 @@
+{% load static %}
+{% load posts %}
+<!-- Single Slide -->
+<section class="welcome-post-sliders owl-carousel">
+    {% for i in posts %}
+    <div class="welcome-single-slide">
+        <!-- Post Thumb -->
+        <img src="{% static 'img/bg-img/slide-1.jpg' %}" alt="">
+        <!-- Overlay Text -->
+        <div class="project_title">
+            <div class="post-date-commnents d-flex">
+                <a href="#">{{i.created_at}}</a>
+                <a href="#">{% get_count_of_comments i.slug %} Comments</a>
+            </div>
+            <a href="{{i.get_absolute_url}}">
+                <h5>{{i.title|safe|truncatewords_html:5}}</h5>
+            </a>
+        </div>
+    </div>
+    {% endfor %}
+
+</section>

@@ -1,0 +1,108 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% load posts %}
+{% load category %}
+
+{% block content %}
+
+
+<style>
+   hr {
+    border: none; /* Убираем границу */
+    background-color: red; /* Цвет линии */
+    color: red; /* Цвет линии для IE6-7 */
+    height: 2px; /* Толщина линии */
+   }
+
+
+
+
+</style>
+<!-- ****** Welcome Post Area Start ****** -->
+
+<hr>
+{% get_posts_home_top 4 %}
+<hr>
+
+
+<!-- ****** Welcome Area End ****** -->
+
+<!-- ****** Categories Area Start ****** -->
+
+{% get_categories_home %}
+
+<!-- ****** Categories Area End ****** -->
+
+<!-- ****** Blog Area Start ****** -->
+<section class="blog_area section_padding_0_80">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 col-lg-8">
+                <div class="row">
+
+                    {% get_most_popular_post_home %}
+
+                    {% for i in posts %}
+                    <!-- Single Post -->
+
+                    <div class="col-12 col-md-6">
+
+                        <div class="single-post wow fadeInUp" data-wow-delay=".4s">
+                            <!-- Post Thumb -->
+                            <div class="post-thumb">
+                                <img src="{{i.image.url}}" alt="">
+                            </div>
+                            <!-- Post Content -->
+                            <div class="post-content">
+                                <div class="post-meta d-flex">
+                                    <div class="post-author-date-area d-flex">
+                                        <!-- Post Author -->
+                                        <div class="post-author">
+                                            <a href="#">By {{i.author}}</a>
+                                        </div>
+                                        <!-- Post Date -->
+                                        <div class="post-date">
+                                            <a href="#">{{i.created_at}}</a>
+                                        </div>
+                                    </div>
+                                    <!-- Post Comment & Share Area -->
+                                    <div class="post-comment-share-area d-flex">
+                                        <!-- Post Favourite -->
+                                        <div class="post-favourite">
+                                            <a href="{% url 'post_like' i.slug %}"><i class="fa fa-heart-o"
+                                                                                      aria-hidden="true"></i>
+                                                {{i.get_likes_count}}</a>
+                                        </div>
+                                        <div class="post-comments">
+                                            <a href="#"><i class="fa fa-comment-o" aria-hidden="true"></i>
+                                                {% get_count_of_comments i.slug %}
+                                            </a>
+                                        </div>
+                                        <!-- Post Share -->
+                                        <div class="post-share">
+                                            <a href="#"><i class="fa fa-share-alt" aria-hidden="true"></i></a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a href="{{i.get_absolute_url}}">
+                                    <h4 class="post-headline">{{i.title|safe}}</h4>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+
+                    <!-- ******* List Blog Area Start ******* -->
+
+                    {% get_most_viewed_posts_home 4 %}
+                </div>
+            </div>
+            {% include "inc/_sidebar.html" %}
+        </div>
+    </div>
+</section>
+<!-- ****** Blog Area End ****** -->
+{% include "inc/_instagram.html" %}
+{% endblock %}

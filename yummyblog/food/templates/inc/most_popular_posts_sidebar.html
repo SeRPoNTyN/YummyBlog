@@ -1,0 +1,17 @@
+<div class="single-widget-area popular-post-widget">
+    <div class="widget-title text-center">
+        <h6>Populer Post</h6>
+    </div>
+    {% for i in posts %}
+    <!-- Single Popular Post -->
+    <div class="single-populer-post d-flex">
+        <img src="{{i.image.url}}" alt="">
+        <div class="post-content">
+            <a href="{{i.get_absolute_url}}">
+                <h6>{{i.title|safe}}</h6>
+            </a>
+            <p>{{i.created_at}}</p>
+        </div>
+    </div>
+    {% endfor %}
+</div>

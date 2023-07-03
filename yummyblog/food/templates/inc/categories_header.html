@@ -1,0 +1,12 @@
+<li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" href="#" id="yummyDropdown" role="button" data-toggle="dropdown"
+       aria-haspopup="true" aria-expanded="false">Categories</a>
+    <div class="dropdown-menu" aria-labelledby="yummyDropdown">
+
+        {% for i in categories %}
+        <a class="dropdown-item" href="{{i.get_absolute_url_views}}">{{i.title}}</a>
+        {% endfor %}
+         <a class="dropdown-item" >...</a>
+        <a class="dropdown-item" href="{% url 'choice_category' %}">View All</a>
+    </div>
+</li>

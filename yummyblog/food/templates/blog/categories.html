@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% load static %}
+{% load posts %}
+
+
+{% block content %}
+<!-- ****** Breadcumb Area Start ****** -->
+    <div class="breadcumb-area" style="background-image: url({% static 'img/bg-img/breadcumb.jpg' %});">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-12">
+                    <div class="bradcumb-title text-center">
+                        <h2>{{category}}</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="breadcumb-nav">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{% url 'home' %}"><i class="fa fa-home" aria-hidden="true"></i> Home</a></li>
+                            <li class="breadcrumb-item"><a href="{% url 'archive' %}"><i aria-hidden="true"></i> Archive Page</a></li>
+                            <li class="breadcrumb-item"><a href="{% url 'choice_category' %}"><i aria-hidden="true"></i> Categories</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">{{category}}</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ****** Breadcumb Area End ****** -->
+
+<!-- ****** Archive Area Start ****** -->
+<section class="archive-area section_padding_80">
+    <div class="container">
+        <div class="row">
+
+            {% for i in posts %}
+            <!-- Single Post -->
+            <div class="col-12 col-md-6 col-lg-4">
+                <div class="single-post wow fadeInUp" data-wow-delay="0.1s">
+                    <!-- Post Thumb -->
+                    <div class="post-thumb">
+                        <img src="{{i.image.url}}" alt="">
+                    </div>
+                    <!-- Post Content -->
+                    <div class="post-content">
+                        <div class="post-meta d-flex">
+                            <div class="post-author-date-area d-flex">
+                                <!-- Post Author -->
+                                <div class="post-author">
+                                    <a href="#">By {{i.author}}</a>
+                                </div>
+                                <!-- Post Date -->
+                                <div class="post-date">
+                                    <a href="#">{{i.created_at}}</a>
+                                </div>
+                            </div>
+                            <!-- Post Comment & Share Area -->
+                            <div class="post-comment-share-area d-flex">
+                                <!-- Post Favourite -->
+                                <div class="post-favourite">
+                                    <a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i> {{i.get_likes_count}}</a>
+                                </div>
+                                <!-- Post Comments -->
+                                <div class="post-comments">
+                                    <a href="#"><i class="fa fa-comment-o" aria-hidden="true"></i> {% get_count_of_comments i.slug %}</a>
+                                </div>
+                                <!-- Post Share -->
+                                <div class="post-share">
+                                    <a href="#"><i class="fa fa-share-alt" aria-hidden="true"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="{{i.get_absolute_url}}">
+                            <h4 class="post-headline">{{i.title|safe}}</h4>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+            {% if page_obj.has_other_pages %}
+            {% include "inc/_paginator.html" %}
+            {% endif %}
+
+        </div>
+    </div>
+</section>
+<!-- ****** Archive Area End ****** -->
+{% endblock %}

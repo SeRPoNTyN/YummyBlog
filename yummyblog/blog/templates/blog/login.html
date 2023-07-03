@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+
+<section class="tournaments-section spad">
+    <div class="container">
+
+        <div class="card">
+            <div class="card-body">
+                <div class="card">
+                    <div class="card-body">
+                        <form action="{%  url 'login'  %}" method="post">
+
+                            {% csrf_token %}
+                            <h5>Sign in: </h5>
+                            <br>
+                            {{ form.as_p }}
+                            {{ form.non_field.errors }}
+
+                            <h6>Don't have any account? <a href="{% url 'register' %}">Sign Up</a></h6>
+                            <br>
+                            <button type="submit" class="btn btn-success">Login</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
