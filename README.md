@@ -2,5 +2,5 @@
 
 В ТЕРМИНАЛЕ ПРОПИСЫВАЕШЬ КОМАНДЫ:
 
-cd YummyBlog
-python manage.py runserver
+1) cd YummyBlog
+2) python manage.py runserver
